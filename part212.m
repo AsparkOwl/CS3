@@ -54,3 +54,5 @@ image(x([1 end]),y([1 end]),img); axis image xy;
 %ray, since rays are emitted at different angle, they will diverge forever.   
 %To make them converge, we need a lens and M_f to bend rays
 
+% Can include multiple figures in report here
+
