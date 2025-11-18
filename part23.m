@@ -1,18 +1,44 @@
 %% Part 2.2.3
 load lightField.mat
-f=0.15; % focal length of lens I fixed it for now
+f=0.2;
+d2=0.4;
+r_lens=0.025;  % Lens radius
+
+lens_positions=[
+    0,0;           % Lens centered
+    -0.05,0;      % Shifted left 
+    0.05,0;       % Shifted right
+];
+
 M_f=[1,0,0,0;
     -1/f,1,0,0;
     0,0,1,0;
-    0,0,-1/f,1]; % lens matrix
-d2=0.24; % d2=0.24 is the best given f=0.15
-M_d2 = [1, d2, 0, 0; 0, 1, 0, 0; 0, 0, 1, d2; 0, 0, 0, 1];
-rays_out = M_d2 * M_f * rays; 
-[img, x, y] = rays2img(rays_out(1,:), rays_out(3,:), 0.003, 1000); % we use 1000 because it feels best from part2.2(1)
-img_flipped = flip(flip(img, 1), 2); % flip the upside down image
-figure;
-image(x([1 end]), y([1 end]), img_flipped); axis image xy; % somehow the image in function is not working, do it here
-title(sprintf('f=%.2f, d2=%.2f', f, d2));
+    0,0,-1/f,1];
+M_d2=[1,d2,0,0;
+    0,1,0,0;
+    0,0,1,d2;
+    0,0,0,1];  % from equation 6
+
+for i=1:size(lens_positions,1)
+    x_lens=lens_positions(i,1);
+    y_lens=lens_positions(i,2);
+    
+    % Check which rays hit the lens (relative to lens center)
+    hit_lens=abs(rays(1,:)-x_lens)<= r_lens;
+    num_rays=sum(hit_lens); % the number of rays hitting the lens. Idealy it should be 1000000, it is used to tune the shifting value 0.05 above
+    % Only process rays that hit the lens
+    rays_subset=rays(:,hit_lens);
+    
+    % Apply optical system
+    rays_out=M_d2 * M_f * rays_subset;
+    [img,x,y]=rays2img(rays_out(1,:), rays_out(3,:),0.005,500);   
+    figure;
+    img_flipped= flip(flip(img,1),2); % flip the upside down image
+    image(x([1 end]),y([1 end]), img_flipped); axis image xy;
+    colormap gray; % set colormap to gray
+    title(sprintf('Lens at (%.4f, %.4f), radius=%.4f, rays hitting= %d',x_lens,y_lens,r_lens,num_rays));
+end
+
 
 % it's a bruno, a unitree Go2 and a WashU badge
 % f = 0.15;
