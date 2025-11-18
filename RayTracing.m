@@ -1,4 +1,3 @@
-% Ray Tracing
 d=0.2; % total simulation distance
 N_rays=8; % 8 rays per x
 theta_x=linspace(-pi/20, pi/20,N_rays); % 8 values from -pi/20, pi/20
@@ -13,7 +12,7 @@ Ray_Red=[repmat(0.01,1,N_rays);
            zeros(1,N_rays);
            zeros(1,N_rays)]; % ray starting at x=0.01
 
-rays_in=[Ray_Blue,Ray_Red]; % put them together for 4*16 matrix 
+rays_in=[Ray_Blue,Ray_Red]; % put them together for 4*16 matrix
 
 M_d=[1,d,0,0;
     0,1,0,0;
@@ -37,7 +36,6 @@ M_f=[1,0,0,0;
     0,0,1,0;
     0,0,-1/f,1];
 d2=(1/f-1/d)^-1; % from equation 11, this ends at the focusing point
-d2_extended=d2+0.1; % this is only for plotting a little distance over the focus point
 M_d2=[1,d2,0,0;
     0,1,0,0;
     0,0,1,d2;
