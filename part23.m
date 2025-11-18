@@ -1,7 +1,7 @@
 %% Part 2.2.3
 load lightField.mat
-f=0.2;
-d2=0.4;
+f=0.2; % tuned f
+d2=0.4; % tuned d2, would be explained in report
 r_lens=0.025;  % Lens radius
 
 lens_positions=[
@@ -13,7 +13,7 @@ lens_positions=[
 M_f=[1,0,0,0;
     -1/f,1,0,0;
     0,0,1,0;
-    0,0,-1/f,1];
+    0,0,-1/f,1]; % lens matrix
 M_d2=[1,d2,0,0;
     0,1,0,0;
     0,0,1,d2;
@@ -23,11 +23,9 @@ for i=1:size(lens_positions,1)
     x_lens=lens_positions(i,1);
     y_lens=lens_positions(i,2);
     
-    % Check which rays hit the lens (relative to lens center)
-    hit_lens=abs(rays(1,:)-x_lens)<= r_lens;
+    hit_lens=abs(rays(1,:)-x_lens)<= r_lens; % Check which rays hit the lens (relative to lens center)
     num_rays=sum(hit_lens); % the number of rays hitting the lens. Idealy it should be 1000000, it is used to tune the shifting value 0.05 above
-    % Only process rays that hit the lens
-    rays_subset=rays(:,hit_lens);
+    rays_subset=rays(:,hit_lens); % Only process rays that hit the lens
     
     % Apply optical system
     rays_out=M_d2 * M_f * rays_subset;
