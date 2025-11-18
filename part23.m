@@ -1,4 +1,4 @@
-%% Part 2.2
+%% Part 2.3
 load lightField.mat
 d1=0.01;
 M_d=[1,d1,0,0;

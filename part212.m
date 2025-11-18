@@ -46,6 +46,7 @@ rays_propagated = M_d * rays; % equation 7
 figure;
 image(x([1 end]),y([1 end]),img); axis image xy;
 
+%Part 2.2:
 % still not producing sharp image, because ray's diverging out as they
 % travel, not converging to a point. We need a lens
 %According to equation 6, x₂ = x₁ + d·θ_x₁， θ_x₂ = θ_x₁ the angle remain
