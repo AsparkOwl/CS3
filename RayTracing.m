@@ -28,6 +28,7 @@ plot(ray_z(:,9:16), [rays_in(1,9:16); rays_out(1,9:16)], 'r');
 xlabel("z(m)")
 ylabel("x(m)");
 title("Ray Propagation in Medium");
+fontsize(16,"points");
 
 f=0.15; % focal length of lens
 r_lens=0.02; %radius of lens is 0.02m
@@ -59,3 +60,4 @@ plot(ray_z2(:,hit_blue), [rays_out(1,hit_blue); rays_out_2(1,hit_blue)], 'b','Li
 plot(ray_z2(:,hit_red), [rays_out(1,hit_red); rays_out_2(1,hit_red)], 'r','LineWidth',1.5); % same with above, only keep hit ray
 xlabel('z (m)'); ylabel('x (m)');
 title("Ray Propagation in Medium");
+fontsize(16,"points");
