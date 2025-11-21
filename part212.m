@@ -1,15 +1,19 @@
 load lightField.mat
 pixel_set={50,200,1000,10000};
-figure;
  % change of d in rays2img only change the zoom in/zoom out, but doesn't change the clarity and does not peoduce sharp image
 for i=1:length(pixel_set)
     pixel = pixel_set{i}; % Get the current d value from the set
-    [img, x, y] = rays2img(rays(1,:), rays(3,:), 0.01, pixel);    
-    subplot(2,2,i);
+    [img, x, y] = rays2img(rays(1,:), rays(3,:), 0.01, pixel); 
+    if mod(i,2)==1 % create two plots for the sake of clarity
+        figure;
+        subplot(1,2,1);
+    else
+        subplot(1,2,2);
+    end
     image(x([1 end]),y([1 end]),img); axis image xy;
     title(sprintf("pixel: %d",pixel));
     colormap gray;
-    fontsize(16,"points");
+    fontsize(16,"points"); % fix all fontsize
 end
 
 % above is trying on different pixel values. Picture becomes somehow
@@ -22,7 +26,7 @@ M_d=[1,d,0,0;
     0,0,1,d;
     0,0,0,1];  % from equation 6
 rays_propagated = M_d * rays; % equation 7
-[img, x, y]=rays2img(rays_propagated(1,:), rays_propagated(3,:), 0.15, 500);
+[img, x, y]=rays2img(rays_propagated(1,:), rays_propagated(3,:), 0.01, 500);
 figure;
 image(x([1 end]),y([1 end]),img); axis image xy;
 colormap gray;

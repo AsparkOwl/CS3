@@ -25,7 +25,7 @@ ray_all={rays_set1,rays_set2,rays_set3}; % group them together for for loop
 for i=1:3 % produce 3 images
     rays_subset=ray_all{i}; % get subset
     rays_out = M_d2 * M_f * rays_subset; % compute rays out 
-    [img, x, y] = rays2img(rays_out(1,:), rays_out(3,:), 0.003, 500);
+    [img, x, y] = rays2img(rays_out(1,:), rays_out(3,:), 0.003, 400);
     figure;
     img_flipped= flip(flip(img,1),2); % flip the upside down image
     image(x([1 end]),y([1 end]), img_flipped); axis image xy;
