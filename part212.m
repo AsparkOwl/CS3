@@ -2,7 +2,7 @@ load lightField.mat
 pixel_set={50,200,1000,10000};
  % change of d in rays2img only change the zoom in/zoom out, but doesn't change the clarity and does not peoduce sharp image
 for i=1:length(pixel_set)
-    pixel = pixel_set{i}; % Get the current d value from the set
+    pixel = pixel_set{i}; % Get the current pixel value from the set
     [img, x, y] = rays2img(rays(1,:), rays(3,:), 0.01, pixel); 
     if mod(i,2)==1 % create two plots for the sake of clarity
         figure;
@@ -17,8 +17,25 @@ for i=1:length(pixel_set)
 end
 
 % above is trying on different pixel values. Picture becomes somehow
-% visible ar 500 and 1000 and becomes too fine at 5000 and 15000. However,
+% visible at 1000 and becomes too fine at 10000. However,
 % it still does not produce a sharp image
+%% 
+d_set=[0.005,0.01,0.1,0.5];
+for i=1:length(d_set)
+    d=d_set(i); % Get the current d value from the set
+    [img, x, y] = rays2img(rays(1,:), rays(3,:), d, 400); 
+    if mod(i,2)==1 % create two plots for the sake of clarity
+        figure;
+        subplot(1,2,1);
+    else
+        subplot(1,2,2);
+    end
+    image(x([1 end]),y([1 end]),img); axis image xy;
+    title(sprintf("d: %.4g",d));
+    colormap gray;
+    fontsize(16,"points"); % fix all fontsize
+end
+
 %% Part 2.1（d）
 d_set=[10e-5,10e-4,10e-3,10e-2]; % test multiple d
 
