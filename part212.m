@@ -20,18 +20,27 @@ end
 % visible ar 500 and 1000 and becomes too fine at 5000 and 15000. However,
 % it still does not produce a sharp image
 %% Part 2.1（d）
-d=0.00001; %ray travelling distance
-M_d=[1,d,0,0;
-    0,1,0,0;
-    0,0,1,d;
-    0,0,0,1];  % from equation 6
-rays_propagated = M_d * rays; % equation 7
-[img, x, y]=rays2img(rays_propagated(1,:), rays_propagated(3,:), 0.01, 500);
-figure;
-image(x([1 end]),y([1 end]),img); axis image xy;
-colormap gray;
-title(sprintf("rays with propagating distance d= %d",d));
-fontsize(16,"points");
+d_set=[10e-5,10e-4,10e-3,10e-2]; % test multiple d
+
+for i=1:length(d_set)
+    d=d_set(i); %ray travelling distance
+    M_d=[1,d,0,0;
+        0,1,0,0;
+        0,0,1,d;
+        0,0,0,1];  % from equation 6
+    rays_propagated = M_d * rays; % equation 7
+    [img, x, y]=rays2img(rays_propagated(1,:), rays_propagated(3,:), 0.01, 500);
+    if mod(i,2)==1 % create two plots for the sake of clarity
+        figure;
+        subplot(1,2,1);
+    else
+        subplot(1,2,2);
+    end
+    image(x([1 end]),y([1 end]),img); axis image xy;
+    colormap gray;
+    title(sprintf("Rays with propagating distance d= %.4g",d));
+    fontsize(18,"points");
+end
 
 %Part 2.2:
 % still not producing sharp image, because ray's diverging out as they

@@ -2,7 +2,6 @@
 load lightField.mat
 f=0.15; % tuned f
 d2=0.24; % tuned d2, would be explained in report
-r_lens=0.025;  % Lens radius
 
 theta_x=rays(2,:); % the three objects has different input angles, we sort the angle and devide them into 3
 theta_x_sorted=sort(theta_x);
