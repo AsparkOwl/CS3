@@ -37,7 +37,7 @@ for i=1:length(d_set)
 end
 
 %% Part 2.1（d）
-d_set=[10e-5,10e-4,10e-3,10e-2]; % test multiple d
+d_set=[10e-4,10e-3,10e-2,10e-1]; % test multiple d
 
 for i=1:length(d_set)
     d=d_set(i); %ray travelling distance
