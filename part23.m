@@ -36,12 +36,12 @@ end
 % it's a bruno, a unitree Go2 and a WashU badge
 % f = 0.15;
 
-%{
+%{  
 for d2 = 0.15:0.02:0.35
     M_f = [1, 0, 0, 0; -1/f, 1, 0, 0; 0, 0, 1, 0; 0, 0, -1/f, 1];
     M_d2 = [1, d2, 0, 0; 0, 1, 0, 0; 0, 0, 1, d2; 0, 0, 0, 1];
     rays_out = M_d2 * M_f * rays;
-    [img, x, y] = rays2img(rays_out(1,:), rays_out(3,:), 0.1, 1000);
+    [img, x, y] = rays2img(rays_out(1,:), rays_out(3,:), 0.1, 400);
     
     figure;
     image(x([1 end]), y([1 end]), img); axis image xy;
